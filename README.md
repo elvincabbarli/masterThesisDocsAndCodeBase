@@ -1,1 +1,5 @@
-# masterThesisDocsAndCodeBase
+# RESEARCH ON WEBSITE ACCESSIBILITY COMPLIANCE
+
+In this thesis, the proposed methodology for website accessibility compliance is designed as an end-to-end solution. The process begins with the selection of real-world websites as raw input, which are systematically evaluated against a defined set of WCAG 2.1 criteria. Automated tools generate initial accessibility data, which is then enriched with expert review and user-centered insights. The workflow covers the full pipeline — from collecting input to producing actionable reports — ensuring that accessibility gaps are identified, contextualized, and explained in a structured manner.
+
+This comprehensive approach demonstrates the essence of end-to-end evaluation: instead of relying on fragmented or partial methods, the thesis integrates input, analysis, and interpretation into one coherent system. The results clearly show why certain websites achieve higher compliance while others fail, bridging the gap between technical testing and meaningful usability insights. By combining automated checks with AI-based explanation and interpretation, the solution not only measures accessibility but also communicates it in a way that supports developers, policymakers, and end users.
