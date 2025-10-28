@@ -1,0 +1,90 @@
+@startuml
+title Accessibility Compliance Evaluation Workflow (with GAI Agents)
+
+skinparam backgroundColor white
+skinparam shadowing false
+skinparam activity {
+  BackgroundColor White
+  BorderColor Black
+  FontSize 11
+}
+skinparam note {
+  BackgroundColor #FEFBEA
+  BorderColor #CCCC99
+}
+
+start
+
+partition "Website / Input" {
+  :Accessibility Evaluation Started;
+  :Load Website Test Data (axe, WAVE, Validator);
+  note right
+    Extracted Scan Results (JSON/CSV)
+  end note
+}
+
+partition "Data Processing" {
+  :Preprocess & Clean Results;
+  :Prepare Evaluation Dataset (WCAG Criteria);
+}
+
+partition "Analysis (parallel)" {
+  fork
+    :Apply Automated Metrics Analysis;
+    :Calculate Accessibility KPIs;
+    note right
+      KPIs: contrast ratio, alt text coverage,\nARIA correctness, form labeling, keyboard focus
+    end note
+    :GAI Insight Summarizer;
+    note right
+      Interprets metrics in natural language\nand summarizes accessibility trends
+    end note
+    --.-> :Calculate Accessibility KPIs;
+
+  fork again
+    :Apply Expert & User Review Methods;
+    :Generate Accessibility Findings;
+    note right
+      Manual + user testing results\ncovering real usability barriers
+    end note
+    :GAI Pattern Interpreter;
+    note right
+      Describes recurring UX issues,\nsemantic errors, focus traps, etc.
+    end note
+    --.-> :Generate Accessibility Findings;
+  end fork
+}
+
+' GAI Support section handles cleaning + advisory logic
+partition "GAI Support" {
+  :GAI Data Curator;
+  note right
+    Cleans/enriches tool outputs,\ninfers missing WCAG tags,\nnormalizes severities
+  end note
+  --.-> :Load Website Test Data (axe, WAVE, Validator);
+  --.-> :Preprocess & Clean Results;
+}
+
+:Merge Obtained Results;
+note right
+  Combined Automated + Expert Findings
+end note
+
+:GAI Compliance Advisor;
+note right
+  Aggregates analytics, computes\naccessibility compliance score,\n& generates developer checklist
+end note
+--.-> :Merge Obtained Results;
+
+if (Are results satisfactory?) then (Yes)
+  :Finalize Accessibility Report;
+  stop
+else (No)
+  :Refine Parameters / Request Re-testing;
+  note right
+    Loop back to reload and reprocess new data
+  end note
+  -> :Load Website Test Data (axe, WAVE, Validator);
+endif
+
+@enduml

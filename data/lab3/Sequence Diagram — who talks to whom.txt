@@ -1,0 +1,68 @@
+@startuml
+title Accessibility Compliance - Sequence (with AI & Feedback)
+
+skinparam backgroundColor white
+skinparam shadowing false
+skinparam participant {
+  BackgroundColor #EAF6FF
+  BorderColor #336699
+}
+skinparam actorStyle awesome
+skinparam note {
+  BackgroundColor #FEFBEA
+  BorderColor #CCCC99
+}
+
+actor "Researcher" as R
+participant "Automated Scanners\n(axe/WAVE/etc.)" as Scan
+participant "Expert Auditor" as Expert
+participant "User Testing\nCoordinator" as UserLab
+participant "GAI Data Curator" as GAI1
+participant "GAI Insight Summarizer" as GAI2
+participant "GAI Pattern Interpreter" as GAI3
+participant "GAI Compliance Advisor" as GAI4
+participant "Report Portal / Dashboard" as Portal
+
+== Collection ==
+R -> Scan : Run site scans
+Scan --> R : JSON/CSV violations
+R -> Expert : Request manual audit package
+Expert --> R : Expert findings (notes/screens)
+R -> UserLab : Run usability sessions
+UserLab --> R : Session logs & issues
+
+== Curation ==
+R -> GAI1 : Send all evidence (tool+expert+user)
+activate GAI1
+note right of GAI1
+  Normalize, deduplicate,\nmap to WCAG, fill gaps
+end note
+GAI1 --> R : Curated dataset
+deactivate GAI1
+
+== Analysis ==
+R -> GAI2 : Compute KPIs + narrative
+activate GAI2
+GAI2 --> R : Metrics + summaries
+deactivate GAI2
+
+R -> GAI3 : Interpret recurring patterns
+activate GAI3
+GAI3 --> R : Root-cause hypotheses
+deactivate GAI3
+
+R -> GAI4 : Merge & prioritize\n(roadmap + score)
+activate GAI4
+GAI4 --> Portal : Results + recommendations
+deactivate GAI4
+
+== Feedback ==
+Portal --> R : Interactive dashboard
+R -> Portal : Adjust thresholds / request re-test
+Portal -> GAI4 : Re-evaluate plan
+GAI4 -> Scan : Ask for targeted re-scan
+Scan --> GAI4 : Updated violations
+GAI4 --> Portal : Updated score & roadmap
+Portal --> R : Updated view (trend)
+
+@enduml

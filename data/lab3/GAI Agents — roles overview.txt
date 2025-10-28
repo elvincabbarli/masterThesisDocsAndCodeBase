@@ -1,0 +1,48 @@
+@startuml
+title GAI Agents for Accessibility Program
+
+skinparam backgroundColor white
+skinparam shadowing false
+skinparam activity {
+  BackgroundColor #EAF6FF
+  BorderColor #336699
+  FontColor #000
+  FontSize 12
+  FontStyle bold
+}
+skinparam note {
+  BackgroundColor #FEFBEA
+  BorderColor #CCCC99
+}
+
+start
+
+:GAI Data Curator;
+note right
+  - Unifies scanner outputs (axe/WAVE)\n- Maps items → WCAG 2.1 SC\n- Detects duplicates/inconsistencies\n- Fills missing attributes (role/name/state)
+end note
+
+:GAI Insight Summarizer;
+note right
+  - Turns metrics → human narrative\n- Highlights user impact & risk\n- Explains contrast/keyboard/form issues
+end note
+
+:GAI Pattern Interpreter;
+note right
+  - Finds cross-page patterns (e.g.,\n  wrong focus styles, ARIA misuse)\n- Suggests root-cause in components
+end note
+
+:GAI Compliance Advisor;
+note right
+  - Scores compliance (weighted WCAG)\n- Produces prioritized dev checklist\n- Suggests re-test scope & thresholds\n- Triggers feedback loop if needed
+end note
+
+if (Acceptance met?) then (Yes)
+  :Generate Final Accessibility Report;
+  stop
+else (No)
+  :Request Targeted Fixes & Re-tests;
+  --> :GAI Data Curator;
+endif
+
+@enduml

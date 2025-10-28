@@ -1,0 +1,90 @@
+@startuml
+title AI-Enhanced Accessibility Evaluation (with Dashboard & Feedback)
+
+skinparam backgroundColor white
+skinparam shadowing false
+skinparam activity {
+  BackgroundColor White
+  BorderColor Black
+  FontSize 11
+}
+skinparam note {
+  BackgroundColor #FEFBEA
+  BorderColor #CCCC99
+}
+
+start
+:Assessment Started;
+
+partition "Data Collection" {
+  :Ingest Tool Exports (axe/WAVE/HTML validator);
+  :Ingest Expert Notes & User Session Logs;
+  :Preprocess Raw Evidence;
+}
+
+partition "GAI Data Curator" {
+  :Clean & Enrich Evidence;
+  note right
+    - Deduplicate issues
+    - Normalize severities
+    - Infer missing WCAG refs
+    - Group similar nodes
+  end note
+  --> :Preprocess Raw Evidence;
+}
+
+partition "Analysis (parallel)" {
+  fork
+    :Compute Metrics;
+    note right
+      KPIs:
+      - Violations/page
+      - Contrast pass rate
+      - Keyboard path success
+      - Form error clarity
+    end note
+    :GAI Insight Summarizer;
+    note right
+      Converts metrics → narrative\nwith highlights & risks
+    end note
+    --> :Compute Metrics;
+  fork again
+    :Aggregate Manual & User Findings;
+    :GAI Pattern Interpreter;
+    note right
+      Explains recurring UX/accessibility\npatterns, root-causes
+    end note
+    --> :Aggregate Manual & User Findings;
+  end fork
+}
+
+:Merge Obtained Results;
+
+partition "GAI Compliance Advisor" {
+  :Compute Compliance Score\n& Priority Roadmap;
+  note right
+    - WCAG mapping + weights
+    - Fix order suggestions
+    - Est. remediation impact
+  end note
+  --> :Merge Obtained Results;
+}
+
+partition "Reporting & Feedback" {
+  :Publish Interactive Dashboard;
+  note right
+    - Scores by site/page/criterion
+    - Trends after re-tests
+    - Dev checklist export
+  end note
+  if (Meets acceptance threshold?) then (Yes)
+    :Finalize Accessibility Report;
+    stop
+  else (No)
+    :Adjust thresholds / request re-tests;
+    :Advisor triggers feedback loop;
+    --> :Ingest Tool Exports (axe/WAVE/HTML validator);
+  endif
+}
+
+@enduml

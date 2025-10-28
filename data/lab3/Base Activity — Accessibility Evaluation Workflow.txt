@@ -1,0 +1,79 @@
+@startuml
+title Accessibility Compliance Evaluation - Base Workflow
+
+skinparam backgroundColor white
+skinparam shadowing false
+skinparam activity {
+  BackgroundColor White
+  BorderColor Black
+  FontSize 11
+}
+skinparam note {
+  BackgroundColor #FEFBEA
+  BorderColor #CCCC99
+}
+
+start
+
+partition "Project / Input" {
+  :Start Accessibility Assessment;
+  :Select Target Websites (Case Study);
+  :Define Scope (WCAG 2.1 AA, 15 criteria);
+  :Load Collected Evidence (tool outputs, notes);
+}
+
+partition "Automated Testing" {
+  :Run Automated Scans (axe/WAVE/Validator);
+  note right
+    Artifacts:
+    - Violations, contrast, ARIA, headings
+    - Pages crawled
+    - Severity tags
+  end note
+  :Export Machine Results (JSON/CSV);
+}
+
+partition "Expert Review" {
+  :Manual Audit by Specialists;
+  note right
+    Focus:
+    - Keyboard navigation
+    - Focus visible
+    - Labels/Forms
+    - Landmarks & semantics
+  end note
+  :Record Findings & Screenshots;
+}
+
+partition "User Testing" {
+  :Plan & Run User Sessions;
+  note right
+    Participants:
+    - Screen reader users
+    - Keyboard-only users
+    - Low-vision (zoom/contrast)
+  end note
+  :Collect Observations & Errors;
+}
+
+partition "Synthesis & Reporting" {
+  fork
+    :Normalize Data (merge JSON/notes);
+    :Map to WCAG 2.1\n(criteria → success/fail, weight);
+  fork again
+    :Prioritize Issues\n(severity × impact × frequency);
+  end fork
+  :Create Dev Checklist & Tickets;
+  :Compute Compliance Score (per site);
+}
+
+if (Are results acceptable?) then (Yes)
+  :Finalize Report & Executive Summary;
+  stop
+else (No)
+  :Remediation Sprint (fixes by devs);
+  :Re-test (automated + spot manual);
+  --> :Normalize Data (merge JSON/notes);
+endif
+
+@enduml
