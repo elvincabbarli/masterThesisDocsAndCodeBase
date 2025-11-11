@@ -12,7 +12,7 @@ Your task is to analyze structured website accessibility data (X) and generate a
 You must:
 1. Interpret the input data.
 2. Map detected problems to **WCAG 2.1 AA** criteria.
-3. Compute an overall **accessibility compliance score** (0–1 scale).
+3. Compute an overall **accessibility compliance score** (0–2 scale).
 4. Generate a **developer checklist** containing the most critical actions for remediation.
 
 ---
